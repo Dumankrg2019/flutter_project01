@@ -13,39 +13,49 @@ class AuthScreen  extends StatelessWidget {
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 16, left: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: CupertinoTextField(
                   placeholder: 'Логин или почта',
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 16, left: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: CupertinoTextField(
                   placeholder: 'Пароль',
                 ),
               ),
               SizedBox(height: 32,),
-              SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16),
-                  child: CupertinoButton.filled(
-                      child: Text('Войти'),
+
+             Padding(
+               padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: CupertinoButton(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                      color: Color(0xFF4631D2),
+                      child: Text('Войти',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
                       onPressed: () {}),
-                ),
-              ),
+             ),
               SizedBox(height: 19,),
-              SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16),
-                  child: CupertinoButton.filled(
-                      child: Text('Зарегистрироваться'),
-                      onPressed: () {}),
-                ),
-              )
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: CupertinoButton(
+                    color: Color(0xFF4631D2),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Text('Зарегистрироваться',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    onPressed: () {}),
+              ),
+
             ],
           ),
         )
