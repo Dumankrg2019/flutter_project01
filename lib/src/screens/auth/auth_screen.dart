@@ -38,7 +38,7 @@ class AuthScreen  extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 16),
                 decoration: BoxDecoration(
                     color: CupertinoColors.white
-                ),
+                  ),
                 ),
 
               SizedBox(height: 32,),
@@ -58,7 +58,7 @@ class AuthScreen  extends StatelessWidget {
               SizedBox(height: 19,),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CupertinoButton(
                     color: Color(0xFF4631D2),
                     padding: const EdgeInsets.symmetric(vertical: 20),
@@ -69,7 +69,6 @@ class AuthScreen  extends StatelessWidget {
                     ),
                     onPressed: () {}),
               ),
-
             ],
           ),
         )
