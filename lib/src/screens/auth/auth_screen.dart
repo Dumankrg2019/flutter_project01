@@ -1,3 +1,5 @@
+import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -60,7 +62,10 @@ class AuthScreen extends StatelessWidget {
                       'Зарегистрироваться',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegisterRoute);
+                      }
+                    ),
               ),
             ],
           ),

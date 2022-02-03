@@ -61,10 +61,14 @@ class RegisterScreen extends StatelessWidget {
                 placeholder: 'Пароль',
                 padding: EdgeInsets.symmetric(vertical: 19, horizontal: 16),
                 decoration: BoxDecoration(color: CupertinoColors.white),
-                suffix: Icon(
-                  Icons.visibility_off,
-                  color: Colors.black,
+                suffix: Padding(
+                    padding: EdgeInsets.only(right: 16),
+                  child:  Icon(
+                    Icons.visibility_off,
+                    color: Colors.black,
+                  ),
                 ),
+                obscureText: true,
               ),
               Expanded(
                   child: Padding(
