@@ -1,3 +1,7 @@
+import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/common/widgets/custom_button.dart';
+import 'package:first_project01/src/common/widgets/custom_text_field.dart';
+import 'package:first_project01/src/common/widgets/custom_text_field_divider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,11 +13,16 @@ class RegisterScreen extends StatelessWidget {
     return CupertinoPageScaffold(
         backgroundColor: Color(0xFFF3F4F6),
         navigationBar: CupertinoNavigationBar(
-          backgroundColor: CupertinoColors.white,
+          backgroundColor: AppColors.white,
           border: Border(),
-          leading: Icon(
-            Icons.keyboard_arrow_left,
-            color: Colors.black,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.keyboard_arrow_left,
+              color: Colors.black,
+            ),
           ),
           middle: Text('Регистрация'),
         ),
@@ -24,51 +33,21 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(
                 height: 32,
               ),
-              CupertinoTextField(
+              CustomTextField(
                 placeholder: 'Логин',
-                padding:
-                    const EdgeInsets.symmetric(vertical: 19, horizontal: 16),
-                decoration: BoxDecoration(color: CupertinoColors.white),
               ),
-              Container(
-                height: 1,
-                color: Color(0xFFE0E6ED),
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-              ),
-              CupertinoTextField(
+              CustomTextFieldDivider(),
+              CustomTextField(
                 placeholder: 'Телефон',
-                padding:
-                    const EdgeInsets.symmetric(vertical: 19, horizontal: 16),
-                decoration: BoxDecoration(color: CupertinoColors.white),
               ),
-              Container(
-                height: 1,
-                color: Color(0xFFE0E6ED),
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-              ),
-              CupertinoTextField(
+              CustomTextFieldDivider(),
+              CustomTextField(
                 placeholder: 'Почта',
-                padding:
-                    const EdgeInsets.symmetric(vertical: 19, horizontal: 16),
-                decoration: BoxDecoration(color: CupertinoColors.white),
               ),
-              Container(
-                height: 1,
-                color: Color(0xFFE0E6ED),
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-              ),
-              const CupertinoTextField(
+              CustomTextFieldDivider(),
+              CustomTextField(
                 placeholder: 'Пароль',
-                padding: EdgeInsets.symmetric(vertical: 19, horizontal: 16),
-                decoration: BoxDecoration(color: CupertinoColors.white),
-                suffix: Padding(
-                    padding: EdgeInsets.only(right: 16),
-                  child:  Icon(
-                    Icons.visibility_off,
-                    color: Colors.black,
-                  ),
-                ),
-                obscureText: true,
+                showOrHideIconForPassword: true,
               ),
               Expanded(
                   child: Padding(
@@ -77,14 +56,9 @@ class RegisterScreen extends StatelessWidget {
                   alignment: FractionalOffset.bottomCenter,
                   child: SizedBox(
                     width: double.infinity,
-                    child: CupertinoButton(
-                        color: Color(0xFF4631D2),
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          'Создать аккаунт',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () {}),
+                    child: CupertinoBtn(
+                      label: 'Создать аккаунт',
+                    ),
                   ),
                 ),
               )),
