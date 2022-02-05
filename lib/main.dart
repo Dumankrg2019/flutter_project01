@@ -1,6 +1,7 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/router/router.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
+import 'package:first_project01/src/screens/main_screen/MainScreen.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoApp(
       onGenerateRoute: AppRouter.generateRoute,
-      home: AuthScreen(),
+      home: MainScreen(),
       theme: CupertinoThemeData(
         scaffoldBackgroundColor: AppColors.scaffoldBackground,
       ),
