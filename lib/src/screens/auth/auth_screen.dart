@@ -4,7 +4,6 @@ import 'package:first_project01/src/common/widgets/custom_button.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field_divider.dart';
 import 'package:first_project01/src/router/routing_const.dart';
-import 'package:first_project01/src/screens/auth/widgets/custom_button_to_register.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -34,6 +33,7 @@ class AuthScreen extends StatelessWidget {
                 padding: AppPaddings.horizontal,
                 child: CupertinoBtn(
                   label: 'Войти',
+                  onPressed: () { print('войти');},
                 ),
               ),
               SizedBox(
@@ -41,15 +41,17 @@ class AuthScreen extends StatelessWidget {
               ),
               Padding(
                 padding: AppPaddings.horizontal,
-                child: CupertinoBtnToRegister(
+                child: CupertinoBtn(
                   label: 'Зарегистрироваться',
-                ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RegisterRoute);
+                    },
+                )
               ),
             ],
           ),
         ));
   }
 }
-
 
 

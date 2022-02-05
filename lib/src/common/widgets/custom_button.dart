@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 
 class CupertinoBtn extends StatelessWidget {
   final String label;
-
-  const CupertinoBtn({Key? key, required this.label}) : super(key: key);
+  final VoidCallback onPressed;
+  const CupertinoBtn({Key? key, required this.label, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +15,6 @@ class CupertinoBtn extends StatelessWidget {
           label,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        onPressed: () {});
+        onPressed: onPressed);
   }
 }

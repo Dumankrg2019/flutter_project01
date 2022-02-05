@@ -58,6 +58,7 @@ class RegisterScreen extends StatelessWidget {
                     width: double.infinity,
                     child: CupertinoBtn(
                       label: 'Создать аккаунт',
+                      onPressed: () {},
                     ),
                   ),
                 ),
