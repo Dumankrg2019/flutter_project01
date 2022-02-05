@@ -1,77 +1,57 @@
+import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/common/constants/padding_constans.dart';
+import 'package:first_project01/src/common/widgets/custom_button.dart';
+import 'package:first_project01/src/common/widgets/custom_text_field.dart';
+import 'package:first_project01/src/common/widgets/custom_text_field_divider.dart';
+import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 
-
-class AuthScreen  extends StatelessWidget {
-  const AuthScreen ({Key? key}) : super(key: key);
+class AuthScreen extends StatelessWidget {
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Color(0xFFF3F4F6),
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.white,
-        border: Border(),
-        middle: Text('Авторизация'),
-      ),
+        navigationBar: CupertinoNavigationBar(
+          backgroundColor: AppColors.white,
+          border: Border(),
+          middle: Text('Авторизация'),
+        ),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-
-              CupertinoTextField(
-                  placeholder: 'Логин или почта',
-                padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: CupertinoColors.white
-                  ),
-                ),
-
-              Container(
-                height: 1,
-                color: Color(0xFFE0E6ED),
-                margin: const EdgeInsets.symmetric(horizontal: 16),
+              CustomTextField(placeholder: 'Логин или почта'),
+              CustomTextFieldDivider(),
+              CustomTextField(placeholder: 'Пароль'),
+              SizedBox(
+                height: 32,
               ),
-
-              CupertinoTextField(
-                  placeholder: 'Пароль',
-                padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: CupertinoColors.white
-                  ),
-                ),
-
-              SizedBox(height: 32,),
-
-             Padding(
-               padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: CupertinoButton(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                      color: Color(0xFF4631D2),
-                      child: Text('Войти',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      onPressed: () {}),
-             ),
-              SizedBox(height: 19,),
-
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CupertinoButton(
-                    color: Color(0xFF4631D2),
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Text('Зарегистрироваться',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    onPressed: () {}),
+                padding: AppPaddings.horizontal,
+                child: CupertinoBtn(
+                  label: 'Войти',
+                  onPressed: () { print('войти');},
+                ),
+              ),
+              SizedBox(
+                height: 19,
+              ),
+              Padding(
+                padding: AppPaddings.horizontal,
+                child: CupertinoBtn(
+                  label: 'Зарегистрироваться',
+                  onPressed: () {
+                    Navigator.pushNamed(context, RegisterRoute);
+                    },
+                )
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
+
+
