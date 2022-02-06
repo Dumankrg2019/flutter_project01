@@ -1,6 +1,7 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
+import 'package:first_project01/src/screens/ribbon/ribbon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -60,7 +61,7 @@ class MainScreen extends StatelessWidget {
           return CupertinoTabView(builder: (context) {
             switch (index) {
               case 0:
-                return AuthScreen();
+                return RibbonScreen();
               case 1:
                 return RegisterScreen();
               case 2:
