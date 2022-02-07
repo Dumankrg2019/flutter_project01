@@ -1,6 +1,5 @@
-import 'package:first_project01/src/common/constants/color_constants.dart';
-import 'package:first_project01/src/screens/main_screen/widgets/custom_listview_separated_institution.dart';
-import 'package:first_project01/src/screens/main_screen/widgets/custom_search_textfield.dart';
+import 'package:first_project01/src/screens/ribbon/widgets/custom_listview_separated_institution.dart';
+import 'package:first_project01/src/screens/ribbon/widgets/custom_search_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

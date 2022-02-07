@@ -1,5 +1,6 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
+import 'package:first_project01/src/screens/profile/profile_screen.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:first_project01/src/screens/ribbon/ribbon_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,7 +68,7 @@ class MainScreen extends StatelessWidget {
               case 2:
                 return AuthScreen();
               case 3:
-                return RegisterScreen();
+                return ProfileScreen();
               default:
                 return AuthScreen();
             }

@@ -7,4 +7,5 @@ class AppColors {
   static const Color dividerTextFieldColor = Color(0xFFE0E6ED);
   static const Color black = Color(0xFF000000);
   static const Color grey = Color(0xFF929292);
+  static const Color red = Color(0xFFEC3A4D);
 }
