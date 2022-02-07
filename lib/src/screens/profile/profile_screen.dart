@@ -39,12 +39,18 @@ class ProfileScreen extends StatelessWidget {
                 height: 55,
                 child: ElevatedButton(
                       onPressed: () {},
-                      child: Text('Выйти', style: TextStyle(
-                        color: AppColors.red,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Выйти', style: TextStyle(
+                          color: AppColors.red,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal
+                          ),                       
+                        ),
                       ),
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColors.white
+                  ),
                   ),
               )
             ],
