@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String placeholder;
   final bool showOrHideIconForPassword;
+  final TextEditingController? controller;
   const CustomTextField({
     Key? key,
     required this.placeholder,
-    this.showOrHideIconForPassword = false
+    this.showOrHideIconForPassword = false,
+    this.controller
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class CustomTextField extends StatelessWidget {
         ),
       ) : null,
       obscureText: showOrHideIconForPassword,
+      controller: controller,
     );
   }
 }
