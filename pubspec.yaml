@@ -59,6 +59,7 @@ flutter:
   uses-material-design: true
   assets:
      - images/svg/
+     - images/png/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

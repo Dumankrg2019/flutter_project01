@@ -1,4 +1,6 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/screens/main_screen/widgets/custom_listview_separated_institution.dart';
+import 'package:first_project01/src/screens/main_screen/widgets/custom_search_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,7 @@ class RibbonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return CupertinoPageScaffold(
         child: SafeArea(
       child: Column(
@@ -16,22 +19,14 @@ class RibbonScreen extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: CupertinoTextField(
-              placeholder: 'Поиск',
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-              prefix: Padding(
-                padding: const EdgeInsets.only(left: 12),
-                child: Icon(
-                  CupertinoIcons.search,
-                  color: AppColors.grey,
-                ),
-              ),
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.dividerTextFieldColor),
-                  borderRadius: BorderRadius.circular(6.0)),
-            ),
+            child: CustomSearchTextField(),
           ),
-          //ListShops()
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomListViewInstitution(),
+            ),
+          )
         ],
       ),
     ));
@@ -39,21 +34,3 @@ class RibbonScreen extends StatelessWidget {
 }
 
 
-Widget ListShops() {
-  final List<String> names = <String>['Esentail Mall', 'Mega Center', 'Asia center'];
-  final List<int> colorCodes = <int>[500, 300, 100];
-
-  return Container(
-    height: 50,
-    child: ListView.separated(
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 50,
-            color: Colors.blueAccent[colorCodes[index]],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
-        itemCount: names.length
-    ),
-  );
-}
