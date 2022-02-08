@@ -19,6 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Dio dio = Dio();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool showOrHidePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
               CustomTextFieldDivider(),
               CustomTextField(placeholder: 'Пароль',
                 controller: passwordController,
+                showOrHideIconForPassword: showOrHidePassword,
               ),
               SizedBox(
                 height: 32,
