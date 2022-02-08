@@ -6,11 +6,13 @@ class CustomTextField extends StatefulWidget {
   final String placeholder;
   final bool showOrHideIconForPassword;
   final TextEditingController? controller;
-  const CustomTextField({
+  bool showOrHideInputType;
+   CustomTextField({
     Key? key,
     required this.placeholder,
     this.showOrHideIconForPassword = false,
-    this.controller
+    this.controller,
+    this.showOrHideInputType = false
   }) : super(key: key);
 
   @override
@@ -18,7 +20,8 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool changeShowPasswordMode = false;
+
+  bool changeShowPasswordMode = true;
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
@@ -29,18 +32,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
         padding: EdgeInsets.only(right: 16),
         child: Material(
           child: IconButton(
-            icon: Icon(changeShowPasswordMode ? Icons.visibility : Icons.visibility_off,
+            icon: Icon(widget.showOrHideInputType ? Icons.visibility_off : Icons.visibility,
               color: Colors.black,
             ),
             onPressed: () {
               setState(() {
                 changeShowPasswordMode = !changeShowPasswordMode;
+                widget.showOrHideInputType = !widget.showOrHideInputType;
               });
             },
           ),
         ),
       ) : null,
-      obscureText: !changeShowPasswordMode,
+      obscureText: widget.showOrHideInputType,
       controller: widget.controller,
     );
   }

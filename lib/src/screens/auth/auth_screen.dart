@@ -7,6 +7,7 @@ import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -41,6 +42,7 @@ class _AuthScreenState extends State<AuthScreen> {
               CustomTextField(placeholder: 'Пароль',
                 controller: passwordController,
                 showOrHideIconForPassword: showOrHidePassword,
+                showOrHideInputType: true,
               ),
               SizedBox(
                 height: 32,
@@ -50,6 +52,9 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: CupertinoBtn(
                   label: 'Войти',
                   onPressed: () async {
+
+                    Box tokensBox = Hive.box('tokens');
+
                       print('войти');
                       try {
                         Response response = await dio.post('http://api.codeunion.kz/api/v1/auth/login',
@@ -58,7 +63,10 @@ class _AuthScreenState extends State<AuthScreen> {
                               'password': passwordController.text
                             }
                         );
-                        print(response.data['tokens']['accessToken']);
+                        tokensBox.put('access', response.data['tokens']['accessToken']);
+                        tokensBox.put('refresh', response.data['tokens']['refreshToken']);
+                        print(tokensBox.get('access'));
+                        print(tokensBox.get('refresh'));
                         Navigator.pushReplacementNamed(context, MainRoute);
                       } on DioError catch(e) {
                         print(e.response!.data);

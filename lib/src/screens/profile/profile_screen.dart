@@ -1,11 +1,20 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/router/routing_const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 
-class ProfileScreen extends StatelessWidget {
+import '../../../main.dart';
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -38,14 +47,24 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 55,
                 child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Box tokensBox = Hive.box('tokens');
+                        tokensBox.delete('access');
+                        tokensBox.delete('refresh');
+                       // Navigator.pushReplacementNamed(context, AuthRoute);
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                                builder: (context) => MyApp()
+                            )
+                        );
+                      },
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Выйти', style: TextStyle(
                           color: AppColors.red,
                           fontSize: 16,
                           fontWeight: FontWeight.normal
-                          ),                       
+                          ),
                         ),
                       ),
                   style: ElevatedButton.styleFrom(

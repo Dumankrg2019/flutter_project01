@@ -11,68 +11,73 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-            items: [
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    'images/svg/lenta.svg',
-                    color: AppColors.black,
-                  ),
-                  activeIcon: SvgPicture.asset(
-                    'images/svg/lenta.svg',
-                    color: AppColors.main,
-                  ),
-                  label: 'Лента'),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    'images/svg/map.svg',
-                    color: AppColors.black,
-                  ),
-                  activeIcon: SvgPicture.asset(
-                    'images/svg/map.svg',
-                    color: AppColors.main,
-                  ),
-                  label: 'Карта'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    CupertinoIcons.heart,
-                    color: AppColors.black,
-                  ),
-                  activeIcon: Icon(
-                    CupertinoIcons.heart,
-                    color: AppColors.main,
-                  ),
-                  label: 'Избранные'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    CupertinoIcons.person_crop_circle,
-                    color: AppColors.black,
-                  ),
-                  activeIcon: Icon(
-                    CupertinoIcons.person_crop_circle,
-                    color: AppColors.main,
-                  ),
-                  label: 'Профиль'),
-            ],
-            activeColor:
-                AppColors.main //чтобы цвет текста менялся при активном нажатии
-            ),
-        tabBuilder: (context, index) {
-          return CupertinoTabView(builder: (context) {
-            switch (index) {
-              case 0:
-                return RibbonScreen();
-              case 1:
-                return RegisterScreen();
-              case 2:
-                return AuthScreen();
-              case 3:
-                return ProfileScreen();
-              default:
-                return AuthScreen();
-            }
-          });
-        });
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+              items: [
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'images/svg/lenta.svg',
+                      color: AppColors.black,
+                    ),
+                    activeIcon: SvgPicture.asset(
+                      'images/svg/lenta.svg',
+                      color: AppColors.main,
+                    ),
+                    label: 'Лента'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'images/svg/map.svg',
+                      color: AppColors.black,
+                    ),
+                    activeIcon: SvgPicture.asset(
+                      'images/svg/map.svg',
+                      color: AppColors.main,
+                    ),
+                    label: 'Карта'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      CupertinoIcons.heart,
+                      color: AppColors.black,
+                    ),
+                    activeIcon: Icon(
+                      CupertinoIcons.heart,
+                      color: AppColors.main,
+                    ),
+                    label: 'Избранные'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      CupertinoIcons.person_crop_circle,
+                      color: AppColors.black,
+                    ),
+                    activeIcon: Icon(
+                      CupertinoIcons.person_crop_circle,
+                      color: AppColors.main,
+                    ),
+                    label: 'Профиль'),
+              ],
+              activeColor:
+                  AppColors.main //чтобы цвет текста менялся при активном нажатии
+              ),
+          tabBuilder: (context, index) {
+            return CupertinoTabView(builder: (context) {
+              switch (index) {
+                case 0:
+                  return RibbonScreen();
+                case 1:
+                  return RegisterScreen();
+                case 2:
+                  return AuthScreen();
+                case 3:
+                  return ProfileScreen();
+                default:
+                  return AuthScreen();
+              }
+            });
+          }),
+    );
   }
 }
