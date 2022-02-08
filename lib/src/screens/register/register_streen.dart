@@ -48,6 +48,7 @@ class RegisterScreen extends StatelessWidget {
               CustomTextField(
                 placeholder: 'Пароль',
                 showOrHideIconForPassword: true,
+                showOrHideInputType: true,
               ),
               Expanded(
                   child: Padding(
