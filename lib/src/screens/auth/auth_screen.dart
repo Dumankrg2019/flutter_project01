@@ -1,5 +1,6 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/constants/padding_constans.dart';
+import 'package:first_project01/src/common/models/tokens_model.dart';
 import 'package:first_project01/src/common/widgets/custom_button.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field_divider.dart';
@@ -63,11 +64,22 @@ class _AuthScreenState extends State<AuthScreen> {
                               'password': passwordController.text
                             }
                         );
-                        tokensBox.put('access', response.data['tokens']['accessToken']);
-                        tokensBox.put('refresh', response.data['tokens']['refreshToken']);
+                        //Создаём объект TokensModel и в его параметры ложим данные с сервера
+                        // TokensModel tokensModel = TokensModel(
+                        //     access: response.data['tokens']['accessToken'],
+                        //     refresh: response.data['tokens']['refreshToken']
+                        // );
+                        TokensModel tokensModel = TokensModel.fromJson(
+                          response.data['tokens']
+                        );
+
+                        tokensBox.put('access', tokensModel.access);
+                        tokensBox.put('refresh', tokensModel.refresh);
+
                         print(tokensBox.get('access'));
                         print(tokensBox.get('refresh'));
                         Navigator.pushReplacementNamed(context, MainRoute);
+
                       } on DioError catch(e) {
                         print(e.response!.data);
                         showCupertinoModalPopup(
