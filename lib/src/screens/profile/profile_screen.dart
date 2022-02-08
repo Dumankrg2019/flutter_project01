@@ -1,5 +1,6 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/auth/auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +16,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Box tokensBox = Hive.box('tokens');
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -29,14 +31,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 32,),
               Center(child: SvgPicture.asset('images/svg/profile.svg')),
               SizedBox(height: 15,),
-              Text('Duman Kairzhanov', style: TextStyle(
+              Text(tokensBox.get('email').toString(), style: TextStyle(
                   fontSize: 24,
                   color: AppColors.black,
                   fontWeight: FontWeight.w600
                 ),
               ),
               SizedBox(height: 12,),
-              Text('kairzhanovduman@gmail.com', style: TextStyle(
+              Text(tokensBox.get('nickname').toString(), style: TextStyle(
                   fontSize: 16,
                   color: AppColors.grey,
                   fontWeight: FontWeight.normal
@@ -52,10 +54,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         tokensBox.delete('access');
                         tokensBox.delete('refresh');
                        // Navigator.pushReplacementNamed(context, AuthRoute);
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context) => MyApp()
-                            )
+                       //  Navigator.push(context,
+                       //      MaterialPageRoute(
+                       //          builder: (context) => MyApp()
+                       //      )
+                       //  );
+                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(
+                            builder: (context) => AuthScreen()
+                          )
                         );
                       },
                       child: Align(

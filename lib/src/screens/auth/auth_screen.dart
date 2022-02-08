@@ -1,6 +1,7 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/constants/padding_constans.dart';
 import 'package:first_project01/src/common/models/tokens_model.dart';
+import 'package:first_project01/src/common/models/user_model.dart';
 import 'package:first_project01/src/common/widgets/custom_button.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field_divider.dart';
@@ -64,15 +65,21 @@ class _AuthScreenState extends State<AuthScreen> {
                               'password': passwordController.text
                             }
                         );
-                        //Создаём объект TokensModel и в его параметры ложим данные с сервера
-                        // TokensModel tokensModel = TokensModel(
-                        //     access: response.data['tokens']['accessToken'],
-                        //     refresh: response.data['tokens']['refreshToken']
-                        // );
+                        //конвертирование  полей  токена в  созщданную модель
                         TokensModel tokensModel = TokensModel.fromJson(
                           response.data['tokens']
                         );
 
+                        //конвертирование  полей  user в  созщданную модель
+                        UserModel userInfo = UserModel.fromJson(
+                          response.data['user']
+                        );
+
+                        //запись userInfo в localStorage
+                        tokensBox.put('email', userInfo.email);
+                        tokensBox.put('nickname', userInfo.nickname);
+
+                        //запись токена в localStorage
                         tokensBox.put('access', tokensModel.access);
                         tokensBox.put('refresh', tokensModel.refresh);
 
