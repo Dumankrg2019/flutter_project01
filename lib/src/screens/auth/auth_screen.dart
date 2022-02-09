@@ -6,10 +6,12 @@ import 'package:first_project01/src/common/widgets/custom_button.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field.dart';
 import 'package:first_project01/src/common/widgets/custom_text_field_divider.dart';
 import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -37,11 +39,13 @@ class _AuthScreenState extends State<AuthScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CustomTextField(placeholder: 'Логин или почта',
+              CustomTextField(
+                placeholder: 'Логин или почта',
                 controller: emailController,
               ),
               CustomTextFieldDivider(),
-              CustomTextField(placeholder: 'Пароль',
+              CustomTextField(
+                placeholder: 'Пароль',
                 controller: passwordController,
                 showOrHideIconForPassword: showOrHidePassword,
                 showOrHideInputType: true,
@@ -51,80 +55,46 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               Padding(
                 padding: AppPaddings.horizontal,
-                child: CupertinoBtn(
-                  label: 'Войти',
-                  onPressed: () async {
-
-                    Box tokensBox = Hive.box('tokens');
-
-                      print('войти');
-                      try {
-                        Response response = await dio.post('http://api.codeunion.kz/api/v1/auth/login',
-                            data: {
-                              'email': emailController.text,
-                              'password': passwordController.text
-                            }
-                        );
-                        //конвертирование  полей  токена в  созщданную модель
-                        TokensModel tokensModel = TokensModel.fromJson(
-                          response.data['tokens']
-                        );
-
-                        //конвертирование  полей  user в  созщданную модель
-                        UserModel userInfo = UserModel.fromJson(
-                          response.data['user']
-                        );
-
-                        //запись userInfo в localStorage
-                        tokensBox.put('email', userInfo.email);
-                        tokensBox.put('nickname', userInfo.nickname);
-
-                        //запись токена в localStorage
-                        tokensBox.put('access', tokensModel.access);
-                        tokensBox.put('refresh', tokensModel.refresh);
-
-                        print(tokensBox.get('access'));
-                        print(tokensBox.get('refresh'));
-                        Navigator.pushReplacementNamed(context, MainRoute);
-
-                      } on DioError catch(e) {
-                        print(e.response!.data);
-                        showCupertinoModalPopup(
-                            context: context,
-                            builder: (context) {
-                              return CupertinoAlertDialog(
-                                title: Text('Ошибка'),
-                                content: Text('Неправильный  логин или пароль!'),
-                                actions: [
-                                  CupertinoButton(
-                                      child: Text('ОК'),
-                                      onPressed: () => Navigator.pop(context)
-                                  )
-                                ],
-                              );
-                            }
-                        );
-                        throw e;
-                      }
-                    },
+                child: BlocConsumer<LogInBloc, LogInState>(
+                  listener: (context, state) {
+                    if (state is LogInLoaded) {
+                      Navigator.pushReplacementNamed(context, MainRoute);
+                    } else if (state is LogInFailed) {
+                      showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              title: Text('Ошибка'),
+                              content: Text(state.message ?? ''),
+                              actions: [
+                                CupertinoButton(
+                                    child: Text('ОК'),
+                                    onPressed: () => Navigator.pop(context))
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  builder: (context, state) {
+                    return CupertinoBtn(
+                        label: 'Войти',
+                        onPressed: state is LogInLoading ? () {} : () {
+                          context.read<LogInBloc>().add(
+                            LogInPressed(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                        }
+                    );
+                  },
                 ),
               ),
               SizedBox(
                 height: 19,
-              ),
-              Padding(
-                padding: AppPaddings.horizontal,
-                child: CupertinoBtn(
-                  label: 'Зарегистрироваться',
-                  onPressed: () {
-                    Navigator.pushNamed(context, RegisterRoute);
-                    },
-                )
               ),
             ],
           ),
         ));
   }
 }
-
-
