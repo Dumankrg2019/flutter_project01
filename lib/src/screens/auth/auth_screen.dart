@@ -93,6 +93,15 @@ class _AuthScreenState extends State<AuthScreen> {
               SizedBox(
                 height: 19,
               ),
+              Padding(
+                  padding: AppPaddings.horizontal,
+                  child: CupertinoBtn(
+                    label: 'Зарегистрироваться',
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegisterRoute);
+                    },
+                  )
+              ),
             ],
           ),
         ));
