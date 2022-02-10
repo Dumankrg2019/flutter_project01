@@ -1,10 +1,14 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/router/router.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
+import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
 import 'package:first_project01/src/screens/profile/profile_screen.dart';
+import 'package:first_project01/src/screens/register/bloc/registration_bloc.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:first_project01/src/screens/ribbon/ribbon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -68,15 +72,23 @@ class MainScreen extends StatelessWidget {
                 case 0:
                   return RibbonScreen();
                 case 1:
-                  return RegisterScreen();
+                  return BlocProvider(
+                    create: (context) => RegistrationBloc(),
+                    child: RegisterScreen(),
+                  );
                 case 2:
-                  return AuthScreen();
+                  return BlocProvider(
+                    create: (context) => LogInBloc(),
+                    child: AuthScreen(),
+                  );
                 case 3:
                   return ProfileScreen();
                 default:
                   return AuthScreen();
               }
-            });
+            },
+            onGenerateRoute: AppRouter.generateRoute,
+            );
           }),
     );
   }
