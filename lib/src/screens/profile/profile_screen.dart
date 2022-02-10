@@ -1,11 +1,12 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
+import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../main.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -59,10 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                        //          builder: (context) => MyApp()
                        //      )
                        //  );
-                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(
-                            builder: (context) => AuthScreen()
-                          )
-                        );
+                        Navigator.of(context, rootNavigator: true).pushReplacementNamed(AuthRoute);
                       },
                       child: Align(
                         alignment: Alignment.centerLeft,

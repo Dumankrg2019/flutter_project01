@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class CupertinoBtn extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const CupertinoBtn({Key? key, required this.label, required this.onPressed}) : super(key: key);
 
   @override
