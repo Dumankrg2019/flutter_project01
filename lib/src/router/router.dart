@@ -2,6 +2,7 @@ import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
 import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
 import 'package:first_project01/src/screens/main_screen/MainScreen.dart';
+import 'package:first_project01/src/screens/register/bloc/registration_bloc.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,10 @@ class AppRouter {
         );
       case RegisterRoute:
         return CupertinoPageRoute(
-            builder: (context) => RegisterScreen()
+            builder: (context) => BlocProvider(
+              create: (context) => RegistrationBloc(),
+              child: RegisterScreen(),
+            )
         );
       case MainRoute:
         return CupertinoPageRoute(
