@@ -58,7 +58,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: BlocConsumer<LogInBloc, LogInState>(
                   listener: (context, state) {
                     if (state is LogInLoaded) {
-                      Navigator.pushReplacementNamed(context, MainRoute);
+                      Navigator.of(context, rootNavigator: true).pushReplacementNamed(MainRoute);
+                      //Navigator.pushReplacementNamed(context, MainRoute);
                     } else if (state is LogInFailed) {
                       showCupertinoModalPopup(
                           context: context,
@@ -78,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   builder: (context, state) {
                     return CupertinoBtn(
                         label: 'Войти',
-                        onPressed: state is LogInLoading ? () {} : () {
+                        onPressed: state is LogInLoading ? null : () {
                           context.read<LogInBloc>().add(
                             LogInPressed(
                               email: emailController.text,

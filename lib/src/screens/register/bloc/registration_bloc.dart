@@ -14,21 +14,21 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
 
   @override
   Stream<RegistrationState> mapEventToState(
-      RegistrationEvent event,
+      RegistrationEvent register,
       ) async* {
 
     yield RegistrationInLoading();
 
-    if(event is RegistrationInPressed) {
+    if(register is RegistrationInPressed) {
       print('Я работаю и отправляю запрос на сервер!! - Registration');
       try {
         Response response = await dio.post(
             'http://api.codeunion.kz/api/v1/auth/registration/customer/new',
             data: {
-              'nickname': event.nickname,
-              'phone': event.phone,
-              'email': event.email,
-              'password': event.password,
+              'nickname': register.nickname,
+              'phone': register.phone,
+              'email': register.email,
+              'password': register.password,
             }
         );
 

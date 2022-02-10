@@ -60,13 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                        //          builder: (context) => MyApp()
                        //      )
                        //  );
-                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                                create: (context) => LogInBloc(),
-                                child: AuthScreen()
-                            )
-                          )
-                        );
+                        Navigator.of(context, rootNavigator: true).pushReplacementNamed(AuthRoute);
                       },
                       child: Align(
                         alignment: Alignment.centerLeft,

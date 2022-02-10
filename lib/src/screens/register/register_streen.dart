@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         }
                         return CupertinoBtn(
                           label: 'Создать аккаунт',
-                          onPressed: () async {
+                          onPressed: state is RegistrationInLoading? null : () async {
                             context.read<RegistrationBloc>().add(
                                 RegistrationInPressed(
                                     nickname: loginController.text,
