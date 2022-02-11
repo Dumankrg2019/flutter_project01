@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/common/dependencies/injection_container.dart';
 import 'package:first_project01/src/router/router.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
 import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
@@ -73,12 +75,12 @@ class MainScreen extends StatelessWidget {
                   return RibbonScreen();
                 case 1:
                   return BlocProvider(
-                    create: (context) => RegistrationBloc(),
+                    create: (context) => RegistrationBloc(dio: getIt<Dio>()),
                     child: RegisterScreen(),
                   );
                 case 2:
                   return BlocProvider(
-                    create: (context) => LogInBloc(),
+                    create: (context) => LogInBloc(dio: getIt<Dio>()),
                     child: AuthScreen(),
                   );
                 case 3:

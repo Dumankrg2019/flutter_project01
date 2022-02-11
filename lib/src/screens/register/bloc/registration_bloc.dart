@@ -8,9 +8,8 @@ part 'registration_event.dart';
 part 'registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
-  RegistrationBloc() : super(RegistrationInitial());
-
-  final Dio dio = Dio();
+  final Dio dio;
+  RegistrationBloc({required this.dio}) : super(RegistrationInitial());
 
   @override
   Stream<RegistrationState> mapEventToState(
@@ -23,7 +22,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       print('Я работаю и отправляю запрос на сервер!! - Registration');
       try {
         Response response = await dio.post(
-            'http://api.codeunion.kz/api/v1/auth/registration/customer/new',
+            'auth/registration/customer/new',
             data: {
               'nickname': register.nickname,
               'phone': register.phone,

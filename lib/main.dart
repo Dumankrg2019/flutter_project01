@@ -1,4 +1,5 @@
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/common/dependencies/injection_container.dart';
 import 'package:first_project01/src/router/router.dart';
 import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
@@ -11,6 +12,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox('tokens');
+  initGetIt();
   runApp(MyApp());
 }
 
