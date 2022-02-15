@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
+import 'package:first_project01/src/router/routing_const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -53,6 +54,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
         return GestureDetector(
           onTap: () {
             print(_restaurents![index].id);
+            Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
           },
           child: Card(
             clipBehavior: Clip.antiAlias,
