@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -9,6 +11,27 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  final Box tokensBox = Hive.box('tokens');
+
+  getDetailInfo() async {
+    Dio dio = Dio();
+    
+    try {
+      dio.options.headers["authorization"] =
+      'Bearer ${tokensBox.get('access')}';
+      print(tokensBox.get('idRestaurent'));
+      Response response = await dio.get('http://api.codeunion.kz/api/v1/restaurants/details/${tokensBox.get('idRestaurent')}');
+      print(response.data);
+    } on DioError catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    getDetailInfo();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(

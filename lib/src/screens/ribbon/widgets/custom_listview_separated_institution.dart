@@ -54,6 +54,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
         return GestureDetector(
           onTap: () {
             print(_restaurents![index].id);
+            tokensBox.put('idRestaurent', _restaurents![index].id.toString());
             Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
           },
           child: Card(
