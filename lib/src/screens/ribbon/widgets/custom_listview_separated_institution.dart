@@ -18,8 +18,9 @@ class CustomListViewInstitution extends StatefulWidget {
 
 class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
   final Box tokensBox = Hive.box('tokens');
-  List<RestaurentItemModel>? _restaurents;
+  late List<RestaurentItemModel> _restaurents;
   bool _isLoading = true;
+  bool _isFavorite = false;
   getRestaurents() async {
     Dio dio = Dio();
     try {
@@ -35,7 +36,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
       setState(() {
         _isLoading = false;
       });
-      print(_restaurents![0].title);
+      print(_restaurents[0].title);
     } on DioError catch (e) {
       print(e);
     }
@@ -53,8 +54,8 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
       itemBuilder: (_, int index) {
         return GestureDetector(
           onTap: () {
-            print(_restaurents![index].id);
-            tokensBox.put('idRestaurent', _restaurents![index].id.toString());
+            print(_restaurents[index].id);
+            tokensBox.put('idRestaurent', _restaurents[index].id.toString());
             Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
           },
           child: Card(
@@ -63,7 +64,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
               children: [
                 Material(
                   child: Ink.image(
-                    image: NetworkImage(_restaurents![index].images![0].url.toString()),
+                    image: NetworkImage(_restaurents[index].images![0].url.toString()),
                     fit: BoxFit.cover,
                     height: 150,
                   ),
@@ -80,7 +81,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                             Padding(
                               padding: const EdgeInsets.only(left: 16),
                               child: Text(
-                                _restaurents![index].title.toString(),
+                                _restaurents[index].title.toString(),
                                 textDirection: TextDirection.rtl,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -94,7 +95,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                             Padding(
                               padding: const EdgeInsets.only(left: 16),
                               child: Text(
-                                _restaurents![index].description.toString(),
+                                _restaurents[index].description.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -110,7 +111,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                     Padding(
                       padding: const EdgeInsets.only(right: 24),
                       child: Icon(
-                        CupertinoIcons.heart,
+                         CupertinoIcons.heart, //CupertinoIcons.heart_fill,
                         color: AppColors.black,
                       ),
                     ),
@@ -121,7 +122,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
           ),
         );
       },
-      itemCount: _restaurents!.length,
+      itemCount: _restaurents.length,
     );
   }
 }
