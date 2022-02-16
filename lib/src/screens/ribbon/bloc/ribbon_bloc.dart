@@ -19,7 +19,6 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
   Stream<RibbonState> mapEventToState(
       RibbonEvent eventRibbon,
       ) async* {
-
     yield RibbonLoading();
     print('Я работаю Ribbon');
       if(eventRibbon is RibbonGot) {

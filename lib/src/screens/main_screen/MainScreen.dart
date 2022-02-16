@@ -7,6 +7,7 @@ import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
 import 'package:first_project01/src/screens/profile/profile_screen.dart';
 import 'package:first_project01/src/screens/register/bloc/registration_bloc.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
+import 'package:first_project01/src/screens/ribbon/bloc/ribbon_bloc.dart';
 import 'package:first_project01/src/screens/ribbon/ribbon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,7 +73,10 @@ class MainScreen extends StatelessWidget {
             return CupertinoTabView(builder: (context) {
               switch (index) {
                 case 0:
-                  return RibbonScreen();
+                  return BlocProvider(
+                    create: (context) => RibbonBloc(dio: getIt<Dio>()),
+                    child: RibbonScreen(),
+                  );
                 case 1:
                   return BlocProvider(
                     create: (context) => RegistrationBloc(dio: getIt<Dio>()),
