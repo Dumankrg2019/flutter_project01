@@ -26,6 +26,7 @@ class _DetailPageState extends State<DetailPage> {
       print(tokensBox.get('idRestaurent'));
       Response response = await dio.get(
           'http://api.codeunion.kz/api/v1/restaurants/details/${tokensBox.get('idRestaurent')}');
+
       var results = (response.data['restaurant'] as List)
           .map((e) => RestaurentItemModel.fromJson(e))
           .toList();
@@ -96,7 +97,7 @@ class _DetailPageState extends State<DetailPage> {
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(height: 15,),
-                    Text(_restaurents[0].)
+                    Text('с ${_restaurents![0].schedule.opening.toString()} до ${_restaurents![0].schedule.closing.toString()}')
                   ],
                 ),
         ),

@@ -18,6 +18,9 @@ RestaurentItemModel _$RestaurentItemModelFromJson(Map<String, dynamic> json) =>
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => ImagesItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      schedule:
+          ScheduleItemModel.fromJson(json['schedule'] as Map<String, dynamic>),
+      coords: CoordsItemModel.fromJson(json['coords'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RestaurentItemModelToJson(
@@ -31,4 +34,6 @@ Map<String, dynamic> _$RestaurentItemModelToJson(
       'coords_id': instance.coordsId,
       'user_id': instance.userId,
       'images': instance.images,
+      'schedule': instance.schedule,
+      'coords': instance.coords,
     };

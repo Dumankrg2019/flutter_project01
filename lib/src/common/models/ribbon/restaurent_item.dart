@@ -1,6 +1,8 @@
 
+import 'package:first_project01/src/common/models/ribbon/schedule_item.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'coords_item.dart';
 import 'images_item.dart';
 
 part 'restaurent_item.g.dart';
@@ -19,8 +21,9 @@ class RestaurentItemModel {
   final int? coordsId;
   @JsonKey(name: 'user_id')
   final int? userId;
-  @JsonKey(name: 'images')
   final List<ImagesItemModel>? images;
+  final ScheduleItemModel schedule;
+  final CoordsItemModel coords;
 
   RestaurentItemModel({
     required this.isFavourite,
@@ -31,6 +34,8 @@ class RestaurentItemModel {
     required this.coordsId,
     required this.userId,
     required this.images,
+    required this.schedule,
+    required this.coords
   });
 
   factory RestaurentItemModel.fromJson(Map<String, dynamic> json) =>_$RestaurentItemModelFromJson(json);
