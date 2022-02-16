@@ -8,30 +8,28 @@ part 'restaurent_item.g.dart';
 @JsonSerializable()
 class RestaurentItemModel {
   @JsonKey(name: 'is_favourite')
-  final bool? is_favourite;
-  @JsonKey(name: 'id')
+  final bool? isFavourite;
+
   final int? id;
-  @JsonKey(name: 'title')
   final String? title;
-  @JsonKey(name: 'description')
   final String? description;
   @JsonKey(name: 'schedule_id')
-  final int? schedule_id;
+  final int? scheduleId;
   @JsonKey(name: 'coords_id')
-  final int? coords_id;
+  final int? coordsId;
   @JsonKey(name: 'user_id')
-  final int? user_id;
+  final int? userId;
   @JsonKey(name: 'images')
   final List<ImagesItemModel>? images;
 
   RestaurentItemModel({
-    required this.is_favourite,
+    required this.isFavourite,
     required this.id,
     required this.title,
     required this.description,
-    required this.schedule_id,
-    required this.coords_id,
-    required this.user_id,
+    required this.scheduleId,
+    required this.coordsId,
+    required this.userId,
     required this.images,
   });
 

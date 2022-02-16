@@ -10,12 +10,12 @@ class ImagesItemModel {
   @JsonKey(name: 'url')
   final String? url;
   @JsonKey(name: 'restaurant_id')
-  final int? restaurant_id;
+  final int? restaurantId;
 
   ImagesItemModel({
     required this.id,
     required this.url,
-    required this.restaurant_id,
+    required this.restaurantId,
   });
 
   factory ImagesItemModel.fromJson(Map<String, dynamic> json) =>_$ImagesItemModelFromJson(json);

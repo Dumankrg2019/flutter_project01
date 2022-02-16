@@ -8,13 +8,13 @@ part of 'restaurent_item.dart';
 
 RestaurentItemModel _$RestaurentItemModelFromJson(Map<String, dynamic> json) =>
     RestaurentItemModel(
-      is_favourite: json['is_favourite'] as bool?,
+      isFavourite: json['is_favourite'] as bool?,
       id: json['id'] as int?,
       title: json['title'] as String?,
       description: json['description'] as String?,
-      schedule_id: json['schedule_id'] as int?,
-      coords_id: json['coords_id'] as int?,
-      user_id: json['user_id'] as int?,
+      scheduleId: json['schedule_id'] as int?,
+      coordsId: json['coords_id'] as int?,
+      userId: json['user_id'] as int?,
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => ImagesItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -23,12 +23,12 @@ RestaurentItemModel _$RestaurentItemModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$RestaurentItemModelToJson(
         RestaurentItemModel instance) =>
     <String, dynamic>{
-      'is_favourite': instance.is_favourite,
+      'is_favourite': instance.isFavourite,
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'schedule_id': instance.schedule_id,
-      'coords_id': instance.coords_id,
-      'user_id': instance.user_id,
+      'schedule_id': instance.scheduleId,
+      'coords_id': instance.coordsId,
+      'user_id': instance.userId,
       'images': instance.images,
     };
