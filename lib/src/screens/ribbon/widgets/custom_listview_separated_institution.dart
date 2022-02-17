@@ -21,7 +21,6 @@ class CustomListViewInstitution extends StatefulWidget {
 
 class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
   final Box tokensBox = Hive.box('tokens');
-  late List<RestaurentItemModel> _restaurents;
 
   @override
   void initState() {
@@ -33,7 +32,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
     return  BlocConsumer<RibbonBloc, RibbonState>(
       listener: (context, state) {
         if(state is RibbonLoaded) {
-          _restaurents = state.restaurents;
+
         } else if(state is OnItemClickingOfRibbon) {
           Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
         } else if(state is RibbonFailed) {
@@ -61,7 +60,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
             return GestureDetector(
               onTap: () {
                 context.read<RibbonBloc>().add(
-                    ClickItemOfRibbon(index: _restaurents[index].id.toString())
+                    ClickItemOfRibbon(index: state.restaurents[index].id.toString())
                 );
               },
               child: Card(
@@ -70,7 +69,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                   children: [
                     Material(
                       child: Ink.image(
-                        image: NetworkImage(_restaurents[index].images![0].url.toString()),
+                        image: NetworkImage(state.restaurents[index].images![0].url.toString()),
                         fit: BoxFit.cover,
                         height: 150,
                       ),
@@ -87,7 +86,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 16),
                                   child: Text(
-                                    _restaurents[index].title.toString(),
+                                    state.restaurents[index].title.toString(),
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         fontSize: 16,
@@ -101,7 +100,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 16),
                                   child: Text(
-                                    _restaurents[index].description.toString(),
+                                    state.restaurents[index].description.toString(),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -128,7 +127,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
               ),
             );
           },
-          itemCount: _restaurents.length,
+          itemCount: state.restaurents.length,
         );
       },
     );
