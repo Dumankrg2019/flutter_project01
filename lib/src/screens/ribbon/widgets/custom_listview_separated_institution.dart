@@ -34,6 +34,8 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
       listener: (context, state) {
         if(state is RibbonLoaded) {
           _restaurents = state.restaurents;
+        } else if(state is OnItemClickingOfRibbon) {
+          Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
         } else if(state is RibbonFailed) {
           showCupertinoModalPopup(
               context: context,
@@ -58,9 +60,9 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
           itemBuilder: (_, int index) {
             return GestureDetector(
               onTap: () {
-                print(_restaurents[index].id);
-                tokensBox.put('idRestaurent', _restaurents[index].id.toString());
-                Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
+                context.read<RibbonBloc>().add(
+                    ClickItemOfRibbon(index: _restaurents[index].id.toString())
+                );
               },
               child: Card(
                 clipBehavior: Clip.antiAlias,

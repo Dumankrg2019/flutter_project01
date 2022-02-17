@@ -31,14 +31,16 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
           var results = (response.data['restaurants'] as List)
               .map((e) => RestaurentItemModel.fromJson(e))
               .toList();
-          //eventRibbon.restaurent = results;
 
-          //print(eventRibbon.restaurent[0].title);
           yield RibbonLoaded(restaurents: results);
         } on DioError catch (e) {
           yield RibbonFailed(message: 'Ошибка загрузки');
           throw e;
         }
+      } else if(eventRibbon is ClickItemOfRibbon) {
+        print(eventRibbon.index);
+        tokensBox.put('idRestaurent', eventRibbon.index);
+        yield OnItemClickingOfRibbon();
       }
     }
 

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
+import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/main_screen/MainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -55,7 +57,8 @@ class _DetailPageState extends State<DetailPage> {
           border: Border(),
           leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context, rootNavigator: true).pushReplacementNamed(MainRoute);
+              //Navigator.pop(context);
             },
             child: Icon(
               Icons.keyboard_arrow_left,

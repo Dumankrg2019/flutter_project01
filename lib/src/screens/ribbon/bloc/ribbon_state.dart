@@ -13,6 +13,8 @@ class RibbonLoaded extends RibbonState {
   RibbonLoaded({required this.restaurents});
 }
 
+class OnItemClickingOfRibbon extends RibbonState {}
+
 class RibbonFailed extends RibbonState {
   final String? message;
 
