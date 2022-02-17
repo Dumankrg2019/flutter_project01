@@ -7,7 +7,11 @@ class RibbonInitial extends RibbonState {}
 
 class RibbonLoading extends RibbonState {}
 
-class RibbonLoaded extends RibbonState {}
+class RibbonLoaded extends RibbonState {
+  final List<RestaurentItemModel> restaurents;
+
+  RibbonLoaded({required this.restaurents});
+}
 
 class RibbonFailed extends RibbonState {
   final String? message;
