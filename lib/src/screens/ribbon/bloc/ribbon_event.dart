@@ -15,8 +15,8 @@ class ClickItemOfRibbon extends RibbonEvent {
 
 class LikeOrDislikeClick extends RibbonEvent {
 
-  final String? index;
+  final int? idRestaurant;
   bool? isFavorite;
 
-  LikeOrDislikeClick({required this.index, required this.isFavorite});
+  LikeOrDislikeClick({required this.idRestaurant, required this.isFavorite});
 }

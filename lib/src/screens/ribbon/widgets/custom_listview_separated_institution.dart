@@ -52,6 +52,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
         }
       },
       builder: (context, state) {
+        print(state);
         return state is !RibbonLoaded
             ? Center(child: CupertinoActivityIndicator(),)
             :  ListView.separated(
@@ -123,13 +124,13 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                                     ? AppColors.red
                                       : AppColors.black,),
                             onPressed: () {
-                              if(state.restaurents[index].isFavourite ?? false) {
-                                print('убираем лайк');
-                                print(state.restaurents[index].id);
-                              } else {
-                                print('ставим лайк');
-                                print(state.restaurents[index].id);
-                              }
+                              context.read<RibbonBloc>().add(
+                                LikeOrDislikeClick(
+                                    idRestaurant: state.restaurents[index].id,
+                                    isFavorite: state.restaurents[index].isFavourite
+                                )
+                              );
+                              state.restaurents[index].isFavourite = !(state.restaurents[index].isFavourite ?? false);
                             },
                           ),
                         ),

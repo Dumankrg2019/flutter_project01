@@ -20,3 +20,6 @@ class RibbonFailed extends RibbonState {
 
   RibbonFailed({required this.message});
 }
+
+class LikeOrDislikeState extends RibbonState {
+}

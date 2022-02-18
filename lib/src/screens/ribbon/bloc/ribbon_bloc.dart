@@ -37,15 +37,38 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
           yield RibbonFailed(message: 'Ошибка загрузки');
           throw e;
         }
-      } else if(eventRibbon is ClickItemOfRibbon) {
-        print(eventRibbon.index);
-        tokensBox.put('idRestaurent', eventRibbon.index);
-        yield OnItemClickingOfRibbon();
-      } else if(eventRibbon is LikeOrDislikeClick) {
+       }
+      // else if(eventRibbon is ClickItemOfRibbon) {
+      //   print(eventRibbon.index);
+      //   tokensBox.put('idRestaurent', eventRibbon.index);
+      //   yield OnItemClickingOfRibbon();
+      // }
+      else if(eventRibbon is LikeOrDislikeClick) {
           if(eventRibbon.isFavorite ?? false) {
+            try {
+              dio.options.headers["authorization"] =
+              'Bearer ${tokensBox.get('access')}';
+              Response response = await dio.delete(
+                  'http://api.codeunion.kz/api/v1/likes/${eventRibbon.idRestaurant}');
 
+              //yield LikeOrDislikeState();
+            } on DioError catch (e) {
+              //yield RibbonFailed(message: 'Ошибка дизлайка\n ${e.response!.data['message']}');
+              throw e;
+            }
           } else {
-
+            try {
+              dio.options.headers["authorization"] =
+              'Bearer ${tokensBox.get('access')}';
+              Response response = await dio.post(
+                  'http://api.codeunion.kz/api/v1/likes/new',
+              data: {'restaurant_id': eventRibbon.idRestaurant}
+              );
+              //yield LikeOrDislikeState();
+            } on DioError catch (e) {
+              //yield RibbonFailed(message: 'Ошибка поставки лайка \n ${e.response!.data['message']}');
+              throw e;
+            }
           }
       }
     }
