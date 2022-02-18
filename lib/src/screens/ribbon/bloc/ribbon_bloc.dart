@@ -41,6 +41,12 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
         print(eventRibbon.index);
         tokensBox.put('idRestaurent', eventRibbon.index);
         yield OnItemClickingOfRibbon();
+      } else if(eventRibbon is LikeOrDislikeClick) {
+          if(eventRibbon.isFavorite ?? false) {
+
+          } else {
+
+          }
       }
     }
 

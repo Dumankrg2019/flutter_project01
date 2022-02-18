@@ -115,9 +115,22 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 24),
-                          child: Icon(
-                            CupertinoIcons.heart, //CupertinoIcons.heart_fill,
-                            color: AppColors.black,
+                          child: IconButton(
+                            icon: Icon(state.restaurents[index].isFavourite ?? false
+                                    ? CupertinoIcons.heart_fill
+                                        : CupertinoIcons.heart , //CupertinoIcons.heart_fill,
+                                    color: state.restaurents[index].isFavourite ?? false
+                                    ? AppColors.red
+                                      : AppColors.black,),
+                            onPressed: () {
+                              if(state.restaurents[index].isFavourite ?? false) {
+                                print('убираем лайк');
+                                print(state.restaurents[index].id);
+                              } else {
+                                print('ставим лайк');
+                                print(state.restaurents[index].id);
+                              }
+                            },
                           ),
                         ),
                       ],
