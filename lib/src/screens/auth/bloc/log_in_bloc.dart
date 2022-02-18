@@ -49,7 +49,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
         //Navigator.pushReplacementNamed(context, MainRoute);
         yield LogInLoaded();
       } on DioError catch (e) {
-        yield LogInFailed(message: 'Неправильный логин или пароль');
+        yield LogInFailed(message: 'Неправильный логин или пароль\n ${e.response!.data['message']}');
         throw e;
       } catch (e) {
         yield LogInFailed(message: 'Произошла ошибка');
