@@ -24,7 +24,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
 
   @override
   void initState() {
-    context.read<RibbonBloc>().add(RibbonGot());
+    //context.read<RibbonBloc>().add(RibbonGot());
     super.initState();
   }
   @override
@@ -130,7 +130,10 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                                     isFavorite: state.restaurents[index].isFavourite
                                 )
                               );
-                              state.restaurents[index].isFavourite = !(state.restaurents[index].isFavourite ?? false);
+                              setState(() {
+                                state.restaurents[index].isFavourite = !(state.restaurents[index].isFavourite ?? false);
+                              });
+
                             },
                           ),
                         ),

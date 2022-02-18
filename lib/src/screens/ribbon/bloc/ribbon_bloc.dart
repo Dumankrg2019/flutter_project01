@@ -19,9 +19,10 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
   Stream<RibbonState> mapEventToState(
       RibbonEvent eventRibbon,
       ) async* {
-    yield RibbonLoading();
+
     print('Я работаю Ribbon');
       if(eventRibbon is RibbonGot) {
+        yield RibbonLoading();
         try {
           dio.options.headers["authorization"] =
           'Bearer ${tokensBox.get('access')}';
@@ -38,11 +39,11 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
           throw e;
         }
        }
-      // else if(eventRibbon is ClickItemOfRibbon) {
-      //   print(eventRibbon.index);
-      //   tokensBox.put('idRestaurent', eventRibbon.index);
-      //   yield OnItemClickingOfRibbon();
-      // }
+      else if(eventRibbon is ClickItemOfRibbon) {
+        print(eventRibbon.index);
+        tokensBox.put('idRestaurent', eventRibbon.index);
+        yield OnItemClickingOfRibbon();
+      }
       else if(eventRibbon is LikeOrDislikeClick) {
           if(eventRibbon.isFavorite ?? false) {
             try {

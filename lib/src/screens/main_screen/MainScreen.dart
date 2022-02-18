@@ -74,7 +74,7 @@ class MainScreen extends StatelessWidget {
               switch (index) {
                 case 0:
                   return BlocProvider(
-                    create: (context) => RibbonBloc(dio: getIt<Dio>()),
+                    create: (context) => RibbonBloc(dio: getIt<Dio>())..add(RibbonGot()),
                     child: RibbonScreen(),
                   );
                 case 1:
