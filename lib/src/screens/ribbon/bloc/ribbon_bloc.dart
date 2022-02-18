@@ -34,7 +34,7 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
 
           yield RibbonLoaded(restaurents: results);
         } on DioError catch (e) {
-          yield RibbonFailed(message: 'Ошибка загрузки');
+          yield RibbonFailed(message: 'Ошибка загрузки\n ${e.response!.data['message']}');
           throw e;
         }
       } else if(eventRibbon is ClickItemOfRibbon) {

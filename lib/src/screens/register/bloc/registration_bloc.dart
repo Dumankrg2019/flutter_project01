@@ -34,7 +34,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         yield RegistrationInLoaded();
 
       } on DioError catch(e) {
-        yield RegistrationInFailed(message: 'Неправильный логин или пароль');
+        yield RegistrationInFailed(message: 'Неправильный логин или пароль\n ${e.response!.data['message']}');
         throw e;
       } catch (e) {
         yield RegistrationInFailed(message: 'Произшла ошибка');
