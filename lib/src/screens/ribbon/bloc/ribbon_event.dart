@@ -5,14 +5,6 @@ abstract class RibbonEvent {}
 
 class RibbonGot extends RibbonEvent {
 }
-
-class ClickItemOfRibbon extends RibbonEvent {
-
-  final String? index;
-
-  ClickItemOfRibbon({required this.index});
-}
-
 class LikeOrDislikeClick extends RibbonEvent {
 
   final int? idRestaurant;

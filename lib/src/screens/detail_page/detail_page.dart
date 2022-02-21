@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  const DetailPage({ required this.id, Key? key,}) : super(key: key);
+  final String? id;
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -21,13 +22,13 @@ class _DetailPageState extends State<DetailPage> {
 
   getDetailInfo() async {
     Dio dio = Dio();
-
+    print('get id - ${widget.id}');
     try {
       dio.options.headers["authorization"] =
           'Bearer ${tokensBox.get('access')}';
       print(tokensBox.get('idRestaurent'));
       Response response = await dio.get(
-          'http://api.codeunion.kz/api/v1/restaurants/details/${tokensBox.get('idRestaurent')}');
+          'http://api.codeunion.kz/api/v1/restaurants/details/${widget.id}');
 
       var results = (response.data['restaurant'] as List)
           .map((e) => RestaurentItemModel.fromJson(e))

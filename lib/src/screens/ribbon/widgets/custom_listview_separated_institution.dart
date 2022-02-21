@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
 import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/detail_page/detail_page.dart';
 import 'package:first_project01/src/screens/ribbon/bloc/ribbon_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,7 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
       listener: (context, state) {
         if(state is RibbonLoaded) {
 
-        } else if(state is OnItemClickingOfRibbon) {
-          Navigator.of(context, rootNavigator: true).pushNamed(RestaurantDetailRoute);
-        } else if(state is RibbonFailed) {
+        }  else if(state is RibbonFailed) {
           showCupertinoModalPopup(
               context: context,
               builder: (context) {
@@ -60,9 +59,9 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
           itemBuilder: (_, int index) {
             return GestureDetector(
               onTap: () {
-                context.read<RibbonBloc>().add(
-                    ClickItemOfRibbon(index: state.restaurents[index].id.toString())
-                );
+                Navigator.of(context).pushNamed(
+                    RestaurantDetailRoute,
+                    arguments: state.restaurents[index].id.toString());
               },
               child: Card(
                 clipBehavior: Clip.antiAlias,

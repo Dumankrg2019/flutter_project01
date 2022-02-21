@@ -34,7 +34,7 @@ class AppRouter {
         );
       case RestaurantDetailRoute:
         return CupertinoPageRoute(
-          builder: (context) => DetailPage()
+          builder: (context) => DetailPage(id: routeSettings.arguments as String)
         );
       default:
         return CupertinoPageRoute(
