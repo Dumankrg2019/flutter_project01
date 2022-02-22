@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/common/dependencies/injection_container.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
 import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/detail_page/detail_page.dart';
+import 'package:first_project01/src/screens/ribbon/bloc/like_func_bloc/like_func_bloc.dart';
 import 'package:first_project01/src/screens/ribbon/bloc/ribbon_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,6 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
 
   @override
   void initState() {
-    //context.read<RibbonBloc>().add(RibbonGot());
     super.initState();
   }
   @override
@@ -63,7 +64,9 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                     RestaurantDetailRoute,
                     arguments: state.restaurents[index].id.toString());
               },
-              child: Card(
+              child: BlocProvider(
+                create: (context) => LikeFuncBloc(dio: getIt<Dio>()),
+                child: Card(
                 clipBehavior: Clip.antiAlias,
                 child: Column(
                   children: [
@@ -115,32 +118,36 @@ class _CustomListViewInstitutionState extends State<CustomListViewInstitution> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 24),
-                          child: IconButton(
-                            icon: Icon(state.restaurents[index].isFavourite ?? false
-                                    ? CupertinoIcons.heart_fill
-                                        : CupertinoIcons.heart , //CupertinoIcons.heart_fill,
-                                    color: state.restaurents[index].isFavourite ?? false
-                                    ? AppColors.red
-                                      : AppColors.black,),
-                            onPressed: () {
-                              context.read<RibbonBloc>().add(
-                                LikeOrDislikeClick(
-                                    idRestaurant: state.restaurents[index].id,
-                                    isFavorite: state.restaurents[index].isFavourite
-                                )
-                              );
-                              setState(() {
-                                state.restaurents[index].isFavourite = !(state.restaurents[index].isFavourite ?? false);
-                              });
-
-                            },
-                          ),
+                          child: BlocBuilder<LikeFuncBloc, LikeFuncState>(
+                                  builder: (context, likeState) {
+                                         return IconButton(
+                                          icon: Icon(state.restaurents[index].isFavourite ?? false
+                                              ? CupertinoIcons.heart_fill
+                                              : CupertinoIcons.heart , //CupertinoIcons.heart_fill,
+                                            color: state.restaurents[index].isFavourite ?? false
+                                                ? AppColors.red
+                                                : AppColors.black,),
+                                          onPressed: state is LikeFuncLoading ? null : () {
+                                            context.read<LikeFuncBloc>().add(
+                                                LikeFuncPressed(
+                                                    idRestaurant: state.restaurents[index].id,
+                                                    isFavorite: state.restaurents[index].isFavourite
+                                                )
+                                            );
+                                            setState(() {
+                                              state.restaurents[index].isFavourite = !(state.restaurents[index].isFavourite ?? false);
+                                            });
+                                          },
+                                        );
+                                  },
+                                ),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
+),
             );
           },
           itemCount: state.restaurents.length,
