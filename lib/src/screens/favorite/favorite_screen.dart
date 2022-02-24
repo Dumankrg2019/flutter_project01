@@ -36,102 +36,104 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               Text('Favorite'),
               _favoriteRestaurents == null
                   ?  CupertinoActivityIndicator()
-                  : ListView.separated(
-                shrinkWrap: true,
-                  itemBuilder: (_, int index) {
+                  : Flexible(
+                    child: ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (_, int index) {
 
-                   return  GestureDetector(
-                     onTap: () {},
-                     child: Card(
-                         clipBehavior: Clip.antiAlias,
-                       child: Column(
-                         children: [
-                           Material(
-                             child: Ink.image(
-                               image: NetworkImage(_favoriteRestaurents![index]
-                                   .images![0].url.toString()
-                                   ),
-                               fit: BoxFit.cover,
-                               height: 150,
+                     return  GestureDetector(
+                       onTap: () {},
+                       child: Card(
+                           clipBehavior: Clip.antiAlias,
+                         child: Column(
+                           children: [
+                             Material(
+                               child: Ink.image(
+                                 image: NetworkImage(_favoriteRestaurents![index]
+                                     .images![0].url.toString()
+                                     ),
+                                 fit: BoxFit.cover,
+                                 height: 150,
+                               ),
                              ),
-                           ),
-                           Row(
-                             children: [
-                               Expanded(
-                                 child: Column(
-                                     crossAxisAlignment:
-                                     CrossAxisAlignment.start,
-                                     children: [
-                                       SizedBox(
-                                         height: 11,
-                                       ),
-                                       Padding(
-                                         padding:
-                                         const EdgeInsets.only(left: 16),
-                                         child: Text(
-                                           _favoriteRestaurents![index].title
-                                               .toString(),
-                                           textDirection: TextDirection.rtl,
-                                           style: TextStyle(
-                                               fontSize: 16,
-                                               color: AppColors.black,
-                                               fontWeight: FontWeight.bold),
+                             Row(
+                               children: [
+                                 Expanded(
+                                   child: Column(
+                                       crossAxisAlignment:
+                                       CrossAxisAlignment.start,
+                                       children: [
+                                         SizedBox(
+                                           height: 11,
                                          ),
-                                       ),
-                                       SizedBox(
-                                         height: 2,
-                                       ),
-                                       Padding(
-                                         padding:
-                                         const EdgeInsets.only(left: 16),
-                                         child: Text(
-                                           _favoriteRestaurents![index].description
-                                               .toString(),
-                                           maxLines: 2,
-                                           overflow: TextOverflow.ellipsis,
+                                         Padding(
+                                           padding:
+                                           const EdgeInsets.only(left: 16),
+                                           child: Text(
+                                             _favoriteRestaurents![index].title
+                                                 .toString(),
+                                             textDirection: TextDirection.rtl,
+                                             style: TextStyle(
+                                                 fontSize: 16,
+                                                 color: AppColors.black,
+                                                 fontWeight: FontWeight.bold),
+                                           ),
                                          ),
-                                       ),
-                                       SizedBox(
-                                         height: 12,
+                                         SizedBox(
+                                           height: 2,
+                                         ),
+                                         Padding(
+                                           padding:
+                                           const EdgeInsets.only(left: 16),
+                                           child: Text(
+                                             _favoriteRestaurents![index].description
+                                                 .toString(),
+                                             maxLines: 2,
+                                             overflow: TextOverflow.ellipsis,
+                                           ),
+                                         ),
+                                         SizedBox(
+                                           height: 12,
+                                         )
+                                       ]),
+                                 ),
+                                 SizedBox(
+                                   width: 21,
+                                 ),
+                                 Padding(
+                                   padding: const EdgeInsets.only(right: 24),
+                                   child:
+                                      IconButton(
+                                         icon: Icon(
+                                           _favoriteRestaurents![index]
+                                               .isFavourite ??
+                                               false
+                                               ? CupertinoIcons.heart_fill
+                                               : CupertinoIcons.heart,
+                                           //CupertinoIcons.heart_fill,
+                                           color: _favoriteRestaurents![index]
+                                               .isFavourite ??
+                                               false
+                                               ? AppColors.red
+                                               : AppColors.black,
+                                         ),
+                                         onPressed: () {
+
+                                         },
                                        )
-                                     ]),
-                               ),
-                               SizedBox(
-                                 width: 21,
-                               ),
-                               Padding(
-                                 padding: const EdgeInsets.only(right: 24),
-                                 child:
-                                    IconButton(
-                                       icon: Icon(
-                                         _favoriteRestaurents![index]
-                                             .isFavourite ??
-                                             false
-                                             ? CupertinoIcons.heart_fill
-                                             : CupertinoIcons.heart,
-                                         //CupertinoIcons.heart_fill,
-                                         color: _favoriteRestaurents![index]
-                                             .isFavourite ??
-                                             false
-                                             ? AppColors.red
-                                             : AppColors.black,
-                                       ),
-                                       onPressed: () {
-
-                                       },
-                                     )
-                               ),
-                             ],
-                           ),
-                         ],
+                                 ),
+                               ],
+                             ),
+                           ],
+                         ),
                        ),
-                     ),
 
-                    );
-                  },
-                  separatorBuilder: (_, __) => Divider(),
-                  itemCount: _favoriteRestaurents!.length
-              )
+                      );
+                    },
+                    separatorBuilder: (_, __) => Divider(),
+                    itemCount: _favoriteRestaurents!.length
+              ),
+                  )
             ],
           ),
         )
