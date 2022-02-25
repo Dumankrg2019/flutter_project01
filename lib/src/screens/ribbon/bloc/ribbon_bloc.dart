@@ -60,7 +60,6 @@ class RibbonBloc extends Bloc<RibbonEvent, RibbonState> {
                   'http://api.codeunion.kz/api/v1/likes/new',
               data: {'restaurant_id': eventRibbon.idRestaurant}
               );
-              //yield LikeOrDislikeState();
             } on DioError catch (e) {
               //yield RibbonFailed(message: 'Ошибка поставки лайка \n ${e.response!.data['message']}');
               throw e;
