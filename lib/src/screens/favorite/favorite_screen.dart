@@ -161,26 +161,4 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ));
   }
-
-  getFavoriteList() async {
-    final Dio dio = Dio();
-    final Box tokensBox = Hive.box('tokens');
-
-    try {
-      dio.options.headers["authorization"] =
-          'Bearer ${tokensBox.get('access')}';
-      Response response =
-          await dio.get('http://api.codeunion.kz/api/v1/likes/all');
-      var results = (response.data['restaurants'] as List)
-          .map((e) => RestaurentItemModel.fromJson(e))
-          .toList();
-      setState(() {
-        _favoriteRestaurents = results;
-      });
-      print('shg');
-      print(_favoriteRestaurents!.length);
-    } on DioError catch (e) {
-      print(e);
-    }
-  }
 }
