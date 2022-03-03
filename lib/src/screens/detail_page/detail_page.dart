@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
 import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/detail_page/bloc/get_detail_page_bloc.dart';
 import 'package:first_project01/src/screens/main_screen/MainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/src/provider.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({ required this.id, Key? key,}) : super(key: key);
@@ -45,7 +47,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   void initState() {
-    getDetailInfo();
+    context.read<GetDetailPageBloc>().add(GetDetailPageInfo(idRestaurent: widget.id));
     super.initState();
   }
 
