@@ -5,10 +5,10 @@ abstract class RibbonEvent {}
 
 class RibbonGot extends RibbonEvent {
 }
+class LikeOrDislikeClick extends RibbonEvent {
 
-class ClickItemOfRibbon extends RibbonEvent {
+  final int? idRestaurant;
+  bool? isFavorite;
 
-  final String? index;
-
-  ClickItemOfRibbon({required this.index});
+  LikeOrDislikeClick({required this.idRestaurant, required this.isFavorite});
 }

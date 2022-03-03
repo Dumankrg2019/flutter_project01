@@ -10,7 +10,7 @@ part 'restaurent_item.g.dart';
 @JsonSerializable()
 class RestaurentItemModel {
   @JsonKey(name: 'is_favourite')
-  final bool? isFavourite;
+   bool? isFavourite;
 
   final int? id;
   final String? title;

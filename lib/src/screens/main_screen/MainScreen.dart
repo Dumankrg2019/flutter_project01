@@ -4,6 +4,8 @@ import 'package:first_project01/src/common/dependencies/injection_container.dart
 import 'package:first_project01/src/router/router.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
 import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
+import 'package:first_project01/src/screens/favorite/bloc/favorite_bloc.dart';
+import 'package:first_project01/src/screens/favorite/favorite_screen.dart';
 import 'package:first_project01/src/screens/profile/profile_screen.dart';
 import 'package:first_project01/src/screens/register/bloc/registration_bloc.dart';
 import 'package:first_project01/src/screens/register/register_streen.dart';
@@ -74,7 +76,7 @@ class MainScreen extends StatelessWidget {
               switch (index) {
                 case 0:
                   return BlocProvider(
-                    create: (context) => RibbonBloc(dio: getIt<Dio>()),
+                    create: (context) => RibbonBloc(dio: getIt<Dio>())..add(RibbonGot()),
                     child: RibbonScreen(),
                   );
                 case 1:
@@ -84,8 +86,8 @@ class MainScreen extends StatelessWidget {
                   );
                 case 2:
                   return BlocProvider(
-                    create: (context) => LogInBloc(dio: getIt<Dio>()),
-                    child: AuthScreen(),
+                    create: (context) => FavoriteBloc(dio: getIt<Dio>()),
+                    child: FavoriteScreen(),
                   );
                 case 3:
                   return ProfileScreen();
