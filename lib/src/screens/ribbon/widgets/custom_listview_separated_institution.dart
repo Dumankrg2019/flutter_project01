@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
 import 'package:first_project01/src/common/dependencies/injection_container.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
 import 'package:first_project01/src/router/routing_const.dart';
+import 'package:first_project01/src/screens/detail_page/bloc/get_detail_page_bloc.dart';
 import 'package:first_project01/src/screens/detail_page/detail_page.dart';
 import 'package:first_project01/src/screens/ribbon/bloc/like_func_bloc/like_func_bloc.dart';
 import 'package:first_project01/src/screens/ribbon/bloc/ribbon_bloc.dart';

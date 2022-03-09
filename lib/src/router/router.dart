@@ -3,6 +3,7 @@ import 'package:first_project01/src/common/dependencies/injection_container.dart
 import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/auth/auth_screen.dart';
 import 'package:first_project01/src/screens/auth/bloc/log_in_bloc.dart';
+import 'package:first_project01/src/screens/detail_page/bloc/get_detail_page_bloc.dart';
 import 'package:first_project01/src/screens/detail_page/detail_page.dart';
 import 'package:first_project01/src/screens/main_screen/MainScreen.dart';
 import 'package:first_project01/src/screens/register/bloc/registration_bloc.dart';
@@ -34,7 +35,11 @@ class AppRouter {
         );
       case RestaurantDetailRoute:
         return CupertinoPageRoute(
-          builder: (context) => DetailPage(id: routeSettings.arguments as String)
+          builder: (context) => BlocProvider(
+            create: (context) => GetDetailPageBloc(dio: getIt<Dio>()),
+            child:  DetailPage(id: routeSettings.arguments as String),
+          )
+
         );
       default:
         return CupertinoPageRoute(

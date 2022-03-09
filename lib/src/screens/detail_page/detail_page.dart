@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/src/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({ required this.id, Key? key,}) : super(key: key);
@@ -22,29 +23,6 @@ class _DetailPageState extends State<DetailPage> {
   List<RestaurentItemModel>? _restaurents;
   bool _isLoading = true;
 
-  getDetailInfo() async {
-    Dio dio = Dio();
-    print('get id - ${widget.id}');
-    try {
-      dio.options.headers["authorization"] =
-          'Bearer ${tokensBox.get('access')}';
-      print(tokensBox.get('idRestaurent'));
-      Response response = await dio.get(
-          'http://api.codeunion.kz/api/v1/restaurants/details/${widget.id}');
-
-      var results = (response.data['restaurant'] as List)
-          .map((e) => RestaurentItemModel.fromJson(e))
-          .toList();
-      _restaurents = results;
-      setState(() {
-        _isLoading = false;
-      });
-      print(_restaurents![0].title);
-    } on DioError catch (e) {
-      print(e);
-    }
-  }
-
   @override
   void initState() {
     context.read<GetDetailPageBloc>().add(GetDetailPageInfo(idRestaurent: widget.id));
@@ -54,7 +32,12 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      home: CupertinoPageScaffold(
+      home: BlocConsumer<GetDetailPageBloc, GetDetailPageState>(
+      listener: (context, state) {
+
+      },
+  builder: (context, state) {
+    return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           backgroundColor: Colors.white,
           border: Border(),
@@ -72,13 +55,13 @@ class _DetailPageState extends State<DetailPage> {
               _isLoading ? 'Detail Page' : _restaurents![0].title.toString()),
         ),
         child: SafeArea(
-          child: _isLoading
+          child: state is !GetDetailPageLoaded
               ? Center(
                   child: CupertinoActivityIndicator(),
                 )
               : Column(
                   children: [
-                    Image.network(_restaurents![0].images![0].url.toString()),
+                    Image.network(state.restaurents[0].images![0].url.toString()),
                     SizedBox(
                       height: 16,
                     ),
@@ -94,7 +77,7 @@ class _DetailPageState extends State<DetailPage> {
                       height: 6,
                     ),
                     Text(
-                      _restaurents![0].description.toString(),
+                      state.restaurents[0].description.toString(),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -103,11 +86,13 @@ class _DetailPageState extends State<DetailPage> {
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(height: 15,),
-                    Text('с ${_restaurents![0].schedule.opening.toString()} до ${_restaurents![0].schedule.closing.toString()}')
+                    Text('с ${state.restaurents[0].schedule.opening.toString()} до ${state.restaurents[0].schedule.closing.toString()}')
                   ],
                 ),
         ),
-      ),
+      );
+  },
+),
     );
   }
 }
