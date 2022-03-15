@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:first_project01/src/common/constants/color_constants.dart';
+import 'package:first_project01/src/common/constants/padding_constans.dart';
 import 'package:first_project01/src/common/models/ribbon/restaurent_item.dart';
 import 'package:first_project01/src/router/routing_const.dart';
 import 'package:first_project01/src/screens/detail_page/bloc/get_detail_page_bloc.dart';
 import 'package:first_project01/src/screens/main_screen/MainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/src/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +22,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   final Box tokensBox = Hive.box('tokens');
-  List<RestaurentItemModel>? _restaurents;
-  bool _isLoading = true;
+  String? restaurantName;
 
   @override
   void initState() {
@@ -52,7 +53,8 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
           middle: Text(
-              _isLoading ? 'Detail Page' : _restaurents![0].title.toString()),
+              'Detail Page'
+          ),
         ),
         child: SafeArea(
           child: state is !GetDetailPageLoaded
@@ -65,28 +67,83 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: 16,
                     ),
-                    Text(
-                      'Описание',
-                      style: TextStyle(
-                        color: AppColors.grey,
-                        fontSize: 13,
-                        fontWeight: FontWeight.normal,
+                    Padding(
+                      padding: AppPaddings.horizontal,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Описание',
+                          style: TextStyle(
+                            color: AppColors.grey,
+                            fontSize: 13,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 6,
                     ),
-                    Text(
-                      state.restaurents[0].description.toString(),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: AppColors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: AppPaddings.horizontal,
+                        child: Text(
+                          state.restaurents[0].description.toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: AppColors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Padding(
+                      padding: AppPaddings.horizontal,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Подробнее', style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 13,
+                          color: AppColors.main
+                         )
+                        ),
+                      ),
                     ),
                     SizedBox(height: 15,),
-                    Text('с ${state.restaurents[0].schedule.opening.toString()} до ${state.restaurents[0].schedule.closing.toString()}')
+                    Container(
+                      height: 2,
+                      color: AppColors.dividerTextFieldColor,
+                    ),
+                    SizedBox(height: 20,),
+                    Padding(
+                        padding: AppPaddings.horizontal,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset('images/svg/time_work.svg'),
+                                SizedBox(width: 40,),
+                                Text('с ${state.restaurents[0].schedule.opening.toString()} до ${state.restaurents[0].schedule.closing.toString()}')
+                              ],
+                                )
+                    ),
+                    SizedBox(height: 14,),
+                    Padding(
+                        padding: AppPaddings.horizontal,
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('images/svg/position.svg'),
+                            SizedBox(width: 40,),
+                            Text('${state.restaurents[0].coords.addressName}')
+                          ],
+                        )
+                    ),
+                    SizedBox(height: 20,),
+                    Container(
+                      height: 2,
+                      color: AppColors.dividerTextFieldColor,
+                    ),
                   ],
                 ),
         ),
