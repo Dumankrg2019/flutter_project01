@@ -12,27 +12,32 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
 
   GoogleMapController? _googleMapController;
-
+  BitmapDescriptor?  mapMarker;
+  Set<Marker> _markers = {};
 
   @override
   void initState() {
-    //addMarkers();
     super.initState();
+    setCustomMarker();
   }
 
-  // void addMarkers() async {
-  //   BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-  //     ImageConfiguration(),
-  //     "/images/svg/flag_map.svg",
-  //   );
+  void setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'images/png/flag_map.png');
+  }
 
-  Marker flag = Marker(
-      markerId: MarkerId('flag'),
-    infoWindow: InfoWindow(title: 'This is flag'),
-    // icon:  markerbitmap,
-    position: LatLng(43.233527, 76.934869)
-  );
-  Marker? _destination;
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      _markers.add(
+          Marker(
+            markerId: MarkerId('id-1'),
+            position: LatLng(43.233423, 76.934423),
+            icon: mapMarker!,
+            infoWindow: InfoWindow(title: 'This is flag'),
+          )
+      );
+    });
+  }
+
 
   @override
   void dispose() {
@@ -43,20 +48,33 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      child: Stack(
-        children: [
-          GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(43.229789, 76.901491),
-              zoom: 10,
-            ),
-            zoomControlsEnabled: false,
-            mapToolbarEnabled: false,
-            myLocationEnabled: false,
-            myLocationButtonEnabled: false,
-            markers: {flag},
-          )
-        ],
+      child: SafeArea(
+        child: Stack(
+          children: [
+            Flex(
+              direction: Axis.vertical,
+              children: [
+                Expanded(
+                child: GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(43.233527, 76.934869),
+                    zoom: 15,
+                  ),
+                  markers: _markers,
+                  mapType: MapType.normal,
+                  zoomControlsEnabled: true,
+                  mapToolbarEnabled: true,
+                  myLocationEnabled: true,
+                  zoomGesturesEnabled: true,
+                  myLocationButtonEnabled: true,
+                  scrollGesturesEnabled: true,
+                ),
+              ),
+              ]
+            )
+          ],
+        ),
       ),
     );
   }
