@@ -1,5 +1,7 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
@@ -72,6 +74,19 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ),
               ]
+            ),
+            Positioned(
+              bottom: 80,
+              right: -20,
+              child: MaterialButton(
+                onPressed: () {
+                  print('click from map');
+                },
+                child: SvgPicture.asset(
+                  'images/svg/current_geo.svg'
+                ),
+
+              ),
             )
           ],
         ),
